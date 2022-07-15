@@ -44,8 +44,10 @@ export default function App() {
   const updateContent = (id:string,event:any)=>{
     console.log(event)
     todos.forEach(todo =>{
-      todo.current = event.target.value
-      setTodos([...todos])
+      if(todo.id === id){
+        todo.current = event.target.value
+        setTodos([...todos])
+      }
     })
   }
   
@@ -62,8 +64,12 @@ export default function App() {
   // 敲回车之后，让editing状态变为false，即变为文本格式
   const handleKeyUp = (todo:TodoType,event:any) => { 
     if(event.keyCode !== 13) return;
-    todo.editing = false;
-    setTodos([...todos])
+    todos.forEach(item => {
+      if(item.id === todo.id){
+        todo.editing = false;
+        setTodos([...todos])
+      }
+    })
   }
 
   return (
